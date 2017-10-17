@@ -11,16 +11,16 @@ public class ExplodedTank {
 
 	private static Image[] imgs = { // stored bomb effect images from small to big 
 			tk.getImage(ExplodedTank.class.getClassLoader().getResource(
-					"images/1.gif")),
+					"images/boom_1.png")),
 			tk.getImage(ExplodedTank.class.getClassLoader().getResource(
-					"images/2.gif")),
+					"images/boom_2.png")),
 			tk.getImage(ExplodedTank.class.getClassLoader().getResource(
-					"images/3.gif")),
+					"images/boom_3.png")),
 			tk.getImage(ExplodedTank.class.getClassLoader().getResource(
-					"images/4.gif")),
+					"images/boom_4.png")),
 			tk.getImage(ExplodedTank.class.getClassLoader().getResource(
-					"images/5.gif")),
-			tk.getImage(ExplodedTank.class.getClassLoader().getResource(
+					"images/boom_5.png")),
+			/*tk.getImage(ExplodedTank.class.getClassLoader().getResource(
 					"images/6.gif")),
 			tk.getImage(ExplodedTank.class.getClassLoader().getResource(
 					"images/7.gif")),
@@ -29,7 +29,7 @@ public class ExplodedTank {
 			tk.getImage(ExplodedTank.class.getClassLoader().getResource(
 					"images/9.gif")),
 			tk.getImage(ExplodedTank.class.getClassLoader().getResource(
-					"images/10.gif")), };
+					"images/10.gif"))*/ };
 	int step = 0;
 
 	public ExplodedTank(int x, int y, TankClient tc) { 
@@ -40,7 +40,7 @@ public class ExplodedTank {
 
 	public void draw(Graphics g) { // draw bomb image
 
-		if (!live) { // remove bomb image afterwards
+		if (!live) { // remove this tank
 			tc.explodedTanks.remove(this);
 			return;
 		}

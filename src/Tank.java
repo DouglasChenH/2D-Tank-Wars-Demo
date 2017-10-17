@@ -34,7 +34,9 @@ public class Tank {
 				tk.getImage(ExplodedTank.class.getResource("Images/TANK1_self_down_3.png")),
 				tk.getImage(ExplodedTank.class.getResource("Images/TANK1_self_up_3.png")),
 				tk.getImage(ExplodedTank.class.getResource("Images/TANK1_self_left_3.png")),
-				tk.getImage(ExplodedTank.class.getResource("Images/TANK1_self_right_3.png"))};
+				tk.getImage(ExplodedTank.class.getResource("Images/TANK1_self_right_3.png")),
+				tk.getImage(ExplodedTank.class.getResource("Images/boom_3.png"))
+				};
 
 	}
 
@@ -52,17 +54,21 @@ public class Tank {
 		this.direction = dir;
 		this.tc = tc;
 	}
+	
 
 	public void draw(Graphics g) {
 		if (!live) {
-			if (!good) {
+			if (!good && enemy) {
 				tc.tanks.remove(this); // remove dead tanks
 			}
+			if (!enemy)
+				g.drawImage(tankImags[8], x, y, null);
+				
 			return;
 		}
 
 		if (good)
-			new DrawBloodbBar().draw(g); // create a first aid kit 
+			new DrawBloodbBar().draw(g); 
 
 		switch (Kdirection) {
 							//choose tank image according to direction
@@ -146,48 +152,50 @@ public class Tank {
 	public void keyPressed(KeyEvent e) {  
 		int key = e.getKeyCode();
 		switch (key) {
-		case KeyEvent.VK_R:  //restart
-			tc.tanks.clear();  
-			tc.bullets.clear();
-			tc.trees.clear();
-			tc.otherWall.clear();
-			tc.homeWall.clear();
-			tc.metalWall.clear();
-			tc.homeTank.setLive(false);
-			if (tc.tanks.size() == 0) {   //reinitialize tanks
-				for (int i = 0; i < 20; i++) {
-					if (i < 9)                              //initialize tank locations
-						tc.tanks.add(new Tank(150 + 70 * i, 40, false, true, Direction.R, tc));
-					else if (i < 15)
-						tc.tanks.add(new Tank(700, 140 + 50 * (i -6), false, true, Direction.D, tc));
-					else
-						tc.tanks.add(new Tank(10,  50 * (i - 12), false, true, Direction.L, tc));
+		
+			case KeyEvent.VK_R:  //restart
+				tc.tanks.clear();  
+				tc.bullets.clear();
+				tc.trees.clear();
+				tc.otherWall.clear();
+				tc.homeWall.clear();
+				tc.metalWall.clear();
+				tc.homeTank.setLive(false);
+				if (tc.tanks.size() == 0) {   //reinitialize tanks
+					for (int i = 0; i < 20; i++) {
+						if (i < 9)                              //initialize tank locations
+							tc.tanks.add(new Tank(150 + 70 * i, 40, false, true, Direction.R, tc));
+						else if (i < 15)
+							tc.tanks.add(new Tank(700, 140 + 50 * (i -6), false, true, Direction.D, tc));
+						else
+							tc.tanks.add(new Tank(10,  50 * (i - 12), false, true, Direction.L, tc));
+					}
 				}
+				
+				tc.homeTank = new Tank(300, 560, true, false, Direction.STOP, tc);//initialize own tank location
+				
+				if (!tc.home.isLive())  //reset home 
+					tc.home.setLive(true);
+				new TankClient(); //repaint panel
+				break; 
+				
+			case KeyEvent.VK_RIGHT: 
+				bR = true;
+				break;
+				
+			case KeyEvent.VK_LEFT:
+				bL = true;
+				break;
+			
+			case KeyEvent.VK_UP:  
+				bU = true;
+				break;
+			
+			case KeyEvent.VK_DOWN:
+				bD = true;
+				break;
 			}
-			
-			tc.homeTank = new Tank(300, 560, true, false, Direction.STOP, tc);//initialize own tank location
-			
-			if (!tc.home.isLive())  //reset home 
-				tc.home.setLive(true);
-			new TankClient(); //repaint panel
-			break;
-		case KeyEvent.VK_RIGHT: 
-			bR = true;
-			break;
-			
-		case KeyEvent.VK_LEFT:
-			bL = true;
-			break;
-		
-		case KeyEvent.VK_UP:  
-			bU = true;
-			break;
-		
-		case KeyEvent.VK_DOWN:
-			bD = true;
-			break;
-		}
-		decideDirection();
+			decideDirection();
 	}
 
 	void decideDirection() {
@@ -211,29 +219,28 @@ public class Tank {
 		int key = e.getKeyCode();
 		switch (key) {
 		
-		case KeyEvent.VK_F:
-			fire();
-			break;
+			case KeyEvent.VK_F:
+				fire();
+				break;
+				
+			case KeyEvent.VK_RIGHT:
+				bR = false;
+				break;
 			
-		case KeyEvent.VK_RIGHT:
-			bR = false;
-			break;
-		
-		case KeyEvent.VK_LEFT:
-			bL = false;
-			break;
-		
-		case KeyEvent.VK_UP:
-			bU = false;
-			break;
-		
-		case KeyEvent.VK_DOWN:
-			bD = false;
-			break;
+			case KeyEvent.VK_LEFT:
+				bL = false;
+				break;
 			
-
-		}
-		decideDirection();  //decide moving direction after releasing 
+			case KeyEvent.VK_UP:
+				bU = false;
+				break;
+			
+			case KeyEvent.VK_DOWN:
+				bD = false;
+				break;
+			
+		
+			}
 	}
 
 	public Bullets fire() {  
@@ -330,13 +337,13 @@ public class Tank {
 		}
 	}
 
-	public boolean eat(GetBlood b) {
-		if (this.live && b.isLive() && this.getRect().intersects(b.getRect())) {
+	public boolean repair(Repairing r) {
+		if (this.live && r.isLive() && this.getRect().intersects(r.getRect())) {
 			if(this.life<=100)
 			this.life = this.life+100;      //add 100 health point after eating one heart
 			else
 				this.life = 200;
-			b.setLive(false);
+			r.setLive(false);
 			return true;
 		}
 		return false;

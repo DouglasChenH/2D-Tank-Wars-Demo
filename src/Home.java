@@ -15,7 +15,8 @@ public class Home {
 	private static Image[] homeImags = null;
 	static {
 		homeImags = new Image[] { 
-				tk.getImage(ConcreteWall.class.getResource("Images/home.jpg")), };
+				tk.getImage(ConcreteWall.class.getResource("Images/home_1.png")),
+				tk.getImage(ConcreteWall.class.getResource("Images/home_2.png"))};
 	}
 
 	public Home(int x, int y, TankClient tc) {
@@ -57,6 +58,7 @@ public class Home {
 				w.draw(g);
 			}
 		} else {
+			g.drawImage(homeImags[1], x, y, null);
 			gameOver(g); 
 
 		}

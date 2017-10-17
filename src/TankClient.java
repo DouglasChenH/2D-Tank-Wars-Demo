@@ -20,7 +20,7 @@ public class TankClient extends Frame implements ActionListener {
 	Image screenImage = null;
 
 	Tank homeTank = new Tank(250, 550, true, false, Direction.STOP, this);// instantiate tank 
-	GetBlood blood = new GetBlood(); // instantiate blood 
+	Repairing repairKit = new Repairing(); // instantiate blood 
 	Home home = new Home(373, 545, this);// instantiate home 
 
 	List<River> theRiver = new ArrayList<River>();
@@ -47,58 +47,6 @@ public class TankClient extends Frame implements ActionListener {
 
 	public void framPaint(Graphics g) {
 
-		Color c = g.getColor();
-		g.setColor(Color.green); // set font color to green 
-
-		Font f1 = g.getFont();
-		g.setFont(new Font("TimesRoman", Font.BOLD, 20));
-		g.drawString("Enemies: ", 200, 80);
-		g.setFont(new Font("TimesRoman", Font.ITALIC, 25));
-		g.drawString("" + tanks.size(), 300, 80);
-		g.setFont(new Font("TimesRoman", Font.BOLD, 20));
-		g.drawString("Health: ", 500, 80);
-		g.setFont(new Font("TimesRoman", Font.ITALIC, 25));
-		g.drawString("" + homeTank.getLife(), 580, 80);
-		g.setFont(f1);
-
-		if (tanks.size() == 0 && home.isLive() && homeTank.isLive()) {
-			Font f = g.getFont();
-			g.setFont(new Font("TimesRoman", Font.BOLD, 60)); // judge winner
-			this.otherWall.clear();
-			g.drawString("You Win£¡ ", 310, 300);
-			g.setFont(f);
-		}
-
-		if (homeTank.isLive() == false) {
-			/*
-			 *  tc.tanks.clear();// clear all items
-				tc.metalWall.clear();
-				tc.otherWall.clear();
-				tc.bombTanks.clear();
-				tc.theRiver.clear();
-				tc.trees.clear();
-				tc.bullets.clear();
-				tc.homeTank.setLive(false);
-				Color c = g.getColor(); 
-				g.setColor(Color.green);
-				Font f = g.getFont();
-				g.setFont(new Font(" ", Font.PLAIN, 40));
-				g.drawString("You Lose£¡", 220, 250);
-				g.drawString("  Game Over£¡ ", 220, 300);
-				g.setFont(f);
-				g.setColor(c);
-			 */
-			Font f = g.getFont();
-			g.setFont(new Font("TimesRoman", Font.BOLD, 40));
-			//tanks.clear();
-			//bullets.clear();
-			g.drawString("You Lose£¡", 220, 250);
-			g.drawString("  Game Over£¡ ", 220, 300);
-			g.setFont(f);
-			printable = false;
-		}
-		g.setColor(c);
-
 		for (int i = 0; i < theRiver.size(); i++) { // draw rivers 
 			River r = theRiver.get(i);
 			r.draw(g);
@@ -113,7 +61,7 @@ public class TankClient extends Frame implements ActionListener {
 
 		home.draw(g); // draw home 
 		homeTank.draw(g);// draw own tank 
-		homeTank.eat(blood);// refill blood 
+		homeTank.repair(repairKit);// repair tank 
 
 		for (int i = 0; i < bullets.size(); i++) { 
 			Bullets m = bullets.get(i);
@@ -169,7 +117,7 @@ public class TankClient extends Frame implements ActionListener {
 			t.draw(g);
 		}
 
-		blood.draw(g);
+		repairKit.draw(g);
 
 		for (int i = 0; i < trees.size(); i++) { // draw trees
 			Tree tr = trees.get(i);
@@ -210,6 +158,38 @@ public class TankClient extends Frame implements ActionListener {
 			ConcreteWall w = homeWall.get(i);
 			homeTank.collideWithWall(w);
 			w.draw(g);
+		}
+		
+		
+		g.setColor(Color.green); // set font color to green
+
+		Font f1 = g.getFont();
+		g.setFont(new Font("TimesRoman", Font.BOLD, 20));
+		g.drawString("Enemies: ", 200, 80);
+		g.setFont(new Font("TimesRoman", Font.ITALIC, 25));
+		g.drawString("" + tanks.size(), 300, 80);
+		g.setFont(new Font("TimesRoman", Font.BOLD, 20));
+		g.drawString("Durability: ", 500, 80);
+		g.setFont(new Font("TimesRoman", Font.ITALIC, 25));
+		g.drawString("" + homeTank.getLife(), 620, 80);
+		g.setFont(f1);
+		
+		if (tanks.size() == 0 && home.isLive() && homeTank.isLive()) {
+			Font f = g.getFont();
+			g.setFont(new Font("TimesRoman", Font.BOLD, 60)); // judge winner
+			g.drawString("You Win£¡ ", 310, 300);
+			//g.drawString("Press R to try again...", 330, 380);
+			g.setFont(f);
+		}
+
+		if (homeTank.isLive() == false) {
+			
+			Font f = g.getFont();
+			g.setFont(new Font("TimesRoman", Font.BOLD, 40));
+			g.drawString("You Lose!", 220, 250);
+			g.drawString("Game Over!", 250, 300);
+			g.setFont(f);
+			//printable = false;
 		}
 
 	}
@@ -293,17 +273,15 @@ public class TankClient extends Frame implements ActionListener {
 			else if (i < 3)
 				homeWall.add(new ConcreteWall(370, 500, this));
 			else
-				homeWall.add(new ConcreteWall(416, 350 + i* 50, this));
+				homeWall.add(new ConcreteWall(420, 350 + i* 50, this));
 
 		}
 		
 
-
+		// concrete wall layout
 		for (int i = 0; i < 5; i++) {			
-			otherWall.add(new ConcreteWall(150 + 50 * i, 220, this)); // concrete wall layout
-			//otherWall.add(new CommonWall(500 + 50 * i, 180, this));
+			otherWall.add(new ConcreteWall(150 + 50 * i, 150, this)); 
 			otherWall.add(new ConcreteWall(100, 400 + 50 * i, this));
-			//otherWall.add(new CommonWall(500, 400 + 50 * i, this));
 		
 		}
 
