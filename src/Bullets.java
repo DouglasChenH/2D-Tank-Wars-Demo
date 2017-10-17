@@ -142,8 +142,8 @@ public class Bullets {
 		if (this.live && this.getRect().intersects(t.getRect()) && t.isLive()
 				&& this.good != t.isGood()) {
 
-			BombTank e = new BombTank(t.getX(), t.getY(), tc);
-			tc.bombTanks.add(e);
+			ExplodedTank e = new ExplodedTank(t.getX(), t.getY(), tc);
+			tc.explodedTanks.add(e);
 			if (t.isGood()) {
 				t.setLife(t.getLife() - 50); // health -50
 				if (t.getLife() <= 0)

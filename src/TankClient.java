@@ -25,7 +25,7 @@ public class TankClient extends Frame implements ActionListener {
 
 	List<River> theRiver = new ArrayList<River>();
 	List<Tank> tanks = new ArrayList<Tank>();
-	List<BombTank> bombTanks = new ArrayList<BombTank>();
+	List<ExplodedTank> explodedTanks = new ArrayList<ExplodedTank>();
 	List<Bullets> bullets = new ArrayList<Bullets>();
 	List<Tree> trees = new ArrayList<Tree>();
 	List<CommonWall> homeWall = new ArrayList<CommonWall>(); 
@@ -176,8 +176,8 @@ public class TankClient extends Frame implements ActionListener {
 			tr.draw(g);
 		}
 
-		for (int i = 0; i < bombTanks.size(); i++) { // draw bomb effect
-			BombTank bt = bombTanks.get(i);
+		for (int i = 0; i < explodedTanks.size(); i++) { // draw bomb effect
+			ExplodedTank bt = explodedTanks.get(i);
 			bt.draw(g);
 		}
 

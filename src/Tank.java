@@ -27,14 +27,14 @@ public class Tank {
 	private static Image[] tankImags = null; 
 	static {
 		tankImags = new Image[] {
-				tk.getImage(BombTank.class.getResource("Images/TANK1_enemy_down_3.png")),
-				tk.getImage(BombTank.class.getResource("Images/TANK1_enemy_up_3.png")),
-				tk.getImage(BombTank.class.getResource("Images/TANK1_enemy_left_3.png")),
-				tk.getImage(BombTank.class.getResource("Images/TANK1_enemy_right_3.png")),
-				tk.getImage(BombTank.class.getResource("Images/TANK1_self_down_3.png")),
-				tk.getImage(BombTank.class.getResource("Images/TANK1_self_up_3.png")),
-				tk.getImage(BombTank.class.getResource("Images/TANK1_self_left_3.png")),
-				tk.getImage(BombTank.class.getResource("Images/TANK1_self_right_3.png"))};
+				tk.getImage(ExplodedTank.class.getResource("Images/TANK1_enemy_down_3.png")),
+				tk.getImage(ExplodedTank.class.getResource("Images/TANK1_enemy_up_3.png")),
+				tk.getImage(ExplodedTank.class.getResource("Images/TANK1_enemy_left_3.png")),
+				tk.getImage(ExplodedTank.class.getResource("Images/TANK1_enemy_right_3.png")),
+				tk.getImage(ExplodedTank.class.getResource("Images/TANK1_self_down_3.png")),
+				tk.getImage(ExplodedTank.class.getResource("Images/TANK1_self_up_3.png")),
+				tk.getImage(ExplodedTank.class.getResource("Images/TANK1_self_left_3.png")),
+				tk.getImage(ExplodedTank.class.getResource("Images/TANK1_self_right_3.png"))};
 
 	}
 
