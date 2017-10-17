@@ -1,5 +1,5 @@
 # 2D-Tank-Wars-Demo
-A classic 2d game "tank wars"
+A classic 2d game "Tank Wars"
 
 GUI is designed based on Java AWT & Swing. 
     Currently components are fixed on size and location.
