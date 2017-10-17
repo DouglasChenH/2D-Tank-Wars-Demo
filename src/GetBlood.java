@@ -16,7 +16,7 @@ public class GetBlood {
 	private static Toolkit tk = Toolkit.getDefaultToolkit();
 	private static Image[] bloodImags = null;
 	static {
-		bloodImags = new Image[] { tk.getImage(CommonWall.class
+		bloodImags = new Image[] { tk.getImage(ConcreteWall.class
 				.getResource("Images/hp.png")), };
 	}
 

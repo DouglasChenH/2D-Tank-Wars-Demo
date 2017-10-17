@@ -15,7 +15,7 @@ public class Home {
 	private static Image[] homeImags = null;
 	static {
 		homeImags = new Image[] { 
-				tk.getImage(CommonWall.class.getResource("Images/home.jpg")), };
+				tk.getImage(ConcreteWall.class.getResource("Images/home.jpg")), };
 	}
 
 	public Home(int x, int y, TankClient tc) {
@@ -53,7 +53,7 @@ public class Home {
 			g.drawImage(homeImags[0], x, y, null);
 
 			for (int i = 0; i < tc.homeWall.size(); i++) {
-				CommonWall w = tc.homeWall.get(i);
+				ConcreteWall w = tc.homeWall.get(i);
 				w.draw(g);
 			}
 		} else {

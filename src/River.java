@@ -15,7 +15,7 @@ public class River {
 	
 	static {   //store river image
 		riverImags = new Image[]{
-				tk.getImage(CommonWall.class.getResource("Images/river.jpg")),
+				tk.getImage(ConcreteWall.class.getResource("Images/river.jpg")),
 		};
 	}
 	

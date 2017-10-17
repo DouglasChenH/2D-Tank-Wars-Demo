@@ -159,7 +159,7 @@ public class Bullets {
 		return false; 
 	}
 
-	public boolean hitWall(CommonWall w) { // bullet hits on CommonWall
+	public boolean hitWall(ConcreteWall w) { // bullet hits on CommonWall
 		if (this.live && this.getRect().intersects(w.getRect())) {
 			this.live = false;
 			this.tc.otherWall.remove(w); // remove this comminWall

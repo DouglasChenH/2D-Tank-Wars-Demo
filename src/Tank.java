@@ -263,7 +263,7 @@ public class Tank {
 		return good;
 	}
 
-	public boolean collideWithWall(CommonWall w) {  
+	public boolean collideWithWall(ConcreteWall w) {  
 		if (this.live && this.getRect().intersects(w.getRect())) {
 			 this.changToOldDir();    //return to original direction
 			return true;

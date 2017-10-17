@@ -11,7 +11,7 @@ public class MetalWall {
 	private static Toolkit tk = Toolkit.getDefaultToolkit();
 	private static Image[] wallImags = null;
 	static {
-		wallImags = new Image[] { tk.getImage(CommonWall.class
+		wallImags = new Image[] { tk.getImage(ConcreteWall.class
 				.getResource("Images/iron_1.png")), };
 	}
 

@@ -28,8 +28,8 @@ public class TankClient extends Frame implements ActionListener {
 	List<ExplodedTank> explodedTanks = new ArrayList<ExplodedTank>();
 	List<Bullets> bullets = new ArrayList<Bullets>();
 	List<Tree> trees = new ArrayList<Tree>();
-	List<CommonWall> homeWall = new ArrayList<CommonWall>(); 
-	List<CommonWall> otherWall = new ArrayList<CommonWall>();
+	List<ConcreteWall> homeWall = new ArrayList<ConcreteWall>(); 
+	List<ConcreteWall> otherWall = new ArrayList<ConcreteWall>();
 	List<MetalWall> metalWall = new ArrayList<MetalWall>();
 
 	public void update(Graphics g) {
@@ -127,12 +127,12 @@ public class TankClient extends Frame implements ActionListener {
 			}
 
 			for (int j = 0; j < otherWall.size(); j++) {
-				CommonWall w = otherWall.get(j);
+				ConcreteWall w = otherWall.get(j);
 				m.hitWall(w);
 			}
 
 			for (int j = 0; j < homeWall.size(); j++) {
-				CommonWall cw = homeWall.get(j);
+				ConcreteWall cw = homeWall.get(j);
 				m.hitWall(cw);
 			}
 			m.draw(g); 
@@ -142,12 +142,12 @@ public class TankClient extends Frame implements ActionListener {
 			Tank t = tanks.get(i); 
 
 			for (int j = 0; j < homeWall.size(); j++) {
-				CommonWall cw = homeWall.get(j);
+				ConcreteWall cw = homeWall.get(j);
 				t.collideWithWall(cw); 
 				cw.draw(g);
 			}
 			for (int j = 0; j < otherWall.size(); j++) { 
-				CommonWall cw = otherWall.get(j);
+				ConcreteWall cw = otherWall.get(j);
 				t.collideWithWall(cw);
 				cw.draw(g);
 			}
@@ -176,13 +176,13 @@ public class TankClient extends Frame implements ActionListener {
 			tr.draw(g);
 		}
 
-		for (int i = 0; i < explodedTanks.size(); i++) { // draw bomb effect
+		for (int i = 0; i < explodedTanks.size(); i++) { // draw explosion effect
 			ExplodedTank bt = explodedTanks.get(i);
 			bt.draw(g);
 		}
 
 		for (int i = 0; i < otherWall.size(); i++) { // draw otherWall
-			CommonWall cw = otherWall.get(i);
+			ConcreteWall cw = otherWall.get(i);
 			cw.draw(g);
 		}
 
@@ -200,14 +200,14 @@ public class TankClient extends Frame implements ActionListener {
 			w.draw(g);
 		}
 
-		for (int i = 0; i < otherWall.size(); i++) { //collide with common wall
-			CommonWall cw = otherWall.get(i);
+		for (int i = 0; i < otherWall.size(); i++) { //collide with concrete wall
+			ConcreteWall cw = otherWall.get(i);
 			homeTank.collideWithWall(cw);
 			cw.draw(g);
 		}
 
 		for (int i = 0; i < homeWall.size(); i++) { // own tank collide with own home
-			CommonWall w = homeWall.get(i);
+			ConcreteWall w = homeWall.get(i);
 			homeTank.collideWithWall(w);
 			w.draw(g);
 		}
@@ -289,20 +289,20 @@ public class TankClient extends Frame implements ActionListener {
         
 		for (int i = 0; i < 5; i++) { // home location
 			if (i < 2)
-				homeWall.add(new CommonWall(320, 550 - 50 * i, this));
+				homeWall.add(new ConcreteWall(320, 550 - 50 * i, this));
 			else if (i < 3)
-				homeWall.add(new CommonWall(370, 500, this));
+				homeWall.add(new ConcreteWall(370, 500, this));
 			else
-				homeWall.add(new CommonWall(416, 350 + i* 50, this));
+				homeWall.add(new ConcreteWall(416, 350 + i* 50, this));
 
 		}
 		
 
 
 		for (int i = 0; i < 5; i++) {			
-			otherWall.add(new CommonWall(150 + 50 * i, 220, this)); // common wall layout
+			otherWall.add(new ConcreteWall(150 + 50 * i, 220, this)); // concrete wall layout
 			//otherWall.add(new CommonWall(500 + 50 * i, 180, this));
-			otherWall.add(new CommonWall(100, 400 + 50 * i, this));
+			otherWall.add(new ConcreteWall(100, 400 + 50 * i, this));
 			//otherWall.add(new CommonWall(500, 400 + 50 * i, this));
 		
 		}

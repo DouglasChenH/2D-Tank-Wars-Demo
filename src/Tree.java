@@ -12,7 +12,7 @@ public class Tree {
 	private static Image[] treeImags = null;
 	static {
 		treeImags = new Image[]{
-				tk.getImage(CommonWall.class.getResource("Images/tree.gif")),
+				tk.getImage(ConcreteWall.class.getResource("Images/tree.gif")),
 		};
 	}
 	
