@@ -248,7 +248,7 @@ public class Tank {
 			return null;
 		int x = this.x + Tank.width / 2 - Bullets.width / 2;  //fire location
 		int y = this.y + Tank.length / 2 - Bullets.length / 2;
-		Bullets m = new Bullets(x, y + 2, good, Kdirection, this.tc);  //fire along original direction
+		Bullets m = new Bullets(x, y -25, good, Kdirection, this.tc);  //fire along original direction
 		tc.bullets.add(m);                                                
 		return m;
 	}
