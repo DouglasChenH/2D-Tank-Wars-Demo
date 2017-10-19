@@ -177,7 +177,7 @@ public class TankClient extends Frame implements ActionListener {
 		if (tanks.size() == 0 && home.isLive() && homeTank.isLive()) {
 			Font f = g.getFont();
 			g.setFont(new Font("TimesRoman", Font.BOLD, 60)); // judge winner
-			g.drawString("You Win£° ", 310, 300);
+			g.drawString("You WinÔºÅ ", 310, 300);
 			//g.drawString("Press R to try again...", 330, 380);
 			g.setFont(f);
 		}
@@ -267,6 +267,35 @@ public class TankClient extends Frame implements ActionListener {
 		this.setMenuBar(jmb);// push Bar to JFrame
 		this.setVisible(true);
         
+		mapBuilder();
+
+		for (int i = 0; i < 12; i++) { // initialize  enemy tanks
+			if (i < 9) // initialize tank start locations
+				tanks.add(new Tank(150 + 70 * i, 40, false, true, Direction.D, this));
+			else if (i < 15)
+				tanks.add(new Tank(700, 140 + 50 * (i - 6), false, true, Direction.D, this));
+			else
+				tanks.add(new Tank(10, 50 * (i - 12), false, true, Direction.D, this));
+		}
+
+		this.setSize(Fram_width, Fram_length); // set screen size
+		this.setLocation(280, 50); //set screen location
+		this.setTitle("Tank Wars‚Äî‚Äî(RestartÔºöR FireÔºöF)                 NameÔºöDouglas Chen");
+
+		this.addWindowListener(new WindowAdapter() {
+					public void windowClosing(WindowEvent e) {
+						System.exit(0);
+					}
+				});
+		this.setResizable(false);
+		this.setBackground(Color.GREEN);
+		this.setVisible(true);
+
+		this.addKeyListener(new KeyMonitor());
+		new Thread(new PaintThread()).start(); 
+	}
+	
+	private void mapBuilder() {
 		for (int i = 0; i < 5; i++) { // home location
 			if (i < 2)
 				homeWall.add(new ConcreteWall(320, 550 - 50 * i, this));
@@ -306,31 +335,6 @@ public class TankClient extends Frame implements ActionListener {
 		}
 
 		theRiver.add(new River(85, 100, this));
-
-		for (int i = 0; i < 12; i++) { // initialize  enemy tanks
-			if (i < 9) // initialize tank start locations
-				tanks.add(new Tank(150 + 70 * i, 40, false, true, Direction.D, this));
-			else if (i < 15)
-				tanks.add(new Tank(700, 140 + 50 * (i - 6), false, true, Direction.D, this));
-			else
-				tanks.add(new Tank(10, 50 * (i - 12), false, true, Direction.D, this));
-		}
-
-		this.setSize(Fram_width, Fram_length); // set screen size
-		this.setLocation(280, 50); //set screen location
-		this.setTitle("Tank Wars°™°™(Restart£∫R Fire£∫F)                 Name£∫Douglas Chen");
-
-		this.addWindowListener(new WindowAdapter() {
-					public void windowClosing(WindowEvent e) {
-						System.exit(0);
-					}
-				});
-		this.setResizable(false);
-		this.setBackground(Color.GREEN);
-		this.setVisible(true);
-
-		this.addKeyListener(new KeyMonitor());
-		new Thread(new PaintThread()).start(); 
 	}
 
 	
@@ -412,8 +416,8 @@ public class TankClient extends Frame implements ActionListener {
 
 		} else if (e.getActionCommand().equals("help")) {
 			printable = false;
-			JOptionPane.showMessageDialog(null, "Use °˙ °˚ °¸ °˝ to move£¨F to fire and R to restart£°",
-					"Tutorial£°", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Use ‚Üí ‚Üê ‚Üë ‚Üì to moveÔºåF to fire and R to restartÔºÅ",
+					"TutorialÔºÅ", JOptionPane.INFORMATION_MESSAGE);
 			this.setVisible(true);
 			printable = true;
 			new Thread(new PaintThread()).start(); 
