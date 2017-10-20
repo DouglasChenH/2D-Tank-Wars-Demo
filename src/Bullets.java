@@ -98,19 +98,19 @@ public class Bullets {
 
 		switch (diretion) { // load bullet images
 		case L:
-			g.drawImage(imgs.get("L"), x, y, null);
+			g.drawImage(imgs.get("L"), x-25, y, null);
 			break;
 
 		case U:
-			g.drawImage(imgs.get("U"), x, y, null);
+			g.drawImage(imgs.get("U"), x, y-25, null);
 			break;
 
 		case R:
-			g.drawImage(imgs.get("R"), x, y, null);
+			g.drawImage(imgs.get("R"), x+25, y, null);
 			break;
 
 		case D:
-			g.drawImage(imgs.get("D"), x, y, null);
+			g.drawImage(imgs.get("D"), x, y+ 25, null);
 			break;
 		case STOP:
 			break;	
